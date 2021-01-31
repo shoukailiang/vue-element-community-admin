@@ -51,7 +51,8 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard',affix: true  },// affix: true固 钉
+
     }]
   },
   // 文章管理
@@ -134,6 +135,19 @@ export const constantRoutes = [
       {
         path: 'http://localhost:3000',
         meta: { title: 'IT Alley社区', icon: 'el-icon-link' }
+      }
+    ]
+  },
+  
+  // 标签导航刷新
+  {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index')
       }
     ]
   },
