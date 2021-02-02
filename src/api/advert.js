@@ -1,48 +1,46 @@
 import request from '@/utils/request'
 
 export default {
-	// 分页条件查询标签列表
+	// 条件分页查询接口
 	getList(query, current = 1, size = 20) {
 		return request({
-			url: `/article/label/search`,
+			url: `/article/advert/search`,
 			method: 'post',
-			data: { ...query, current, size } // 合并为一个新对象提交给后台数据接口
+			data: { ...query, current, size }
 		})
 	},
 
-	// 新增标签
+	// 新增广告
 	add(data) {
 		return request({
-			url: `/article/label`,
+			url: `/article/advert`,
 			method: 'post',
 			data
 		})
 	},
 
-	// 查询标签详情
+	// 查询详情
 	getById(id) {
 		return request({
-			url: `/article/label/${id}`,
+			url: `/article/advert/${id}`,
 			method: 'get'
 		})
 	},
 
-	// 更新标签
+	// 更新
 	update(data) {
 		return request({
-			url: `/article/label`,
+			url: `/article/advert`,
 			method: 'put',
 			data
 		})
 	},
 
-	// 通过标签id删除标签信息
+	// 删除
 	deleteById(id) {
 		return request({
-			url: `/article/label/${id}`,
+			url: `/article/advert/${id}`,
 			method: 'delete'
 		})
 	}
-
-
 }
