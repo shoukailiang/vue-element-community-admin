@@ -154,11 +154,13 @@ export default {
 
   methods: {
     async fetchData() {
+      console.log(1)
       const { data } = await api.getList(
         this.query,
         this.page.current,
         this.page.size
       );
+      
       this.page.total = data.total;
       this.list = data.records;
     },
