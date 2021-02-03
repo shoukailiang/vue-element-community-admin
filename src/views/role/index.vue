@@ -295,7 +295,7 @@ export default {
       this.$emit("saveUserRole", checkedRoleIds);
     },
   },
-
+  // 当roleIds变化时
   watch: {
     roleIds() {
       this.query = {}; // 将查询条件清空
