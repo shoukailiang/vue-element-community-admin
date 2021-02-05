@@ -2,10 +2,11 @@
   <div class="app-container">
     <!-- 条件查询 -->
     <el-form :inline="true" :model="query" size="mini">
-      <el-form-item label="分类名称：">
+      <el-form-item label="分类名称：" v-permission="'category:search'">
         <el-input v-model.trim="query.name"></el-input>
       </el-form-item>
-      <el-form-item label="状态：">
+          
+      <el-form-item label="状态：" v-permission="'category:search'">
         <el-select
           v-model="query.status"
           clearable
@@ -22,7 +23,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-search" type="primary" @click="queryData"
+        <el-button icon="el-icon-search" type="primary" @click="queryData" v-permission="'category:search'"
           >查询</el-button
         >
         <el-button icon="el-icon-refresh" @click="reload">重置</el-button>
@@ -30,6 +31,7 @@
           icon="el-icon-circle-plus-outline"
           type="primary"
           @click="openAdd"
+          v-permission="'category:add'"
           >新增</el-button
         >
       </el-form-item>
@@ -71,12 +73,14 @@
             type="success"
             @click="handleEdit(scope.row.id)"
             size="mini"
+            v-permission="'category:edit'"
             >编辑</el-button
           >
           <el-button
             type="danger"
             @click="handleDelete(scope.row.id)"
             size="mini"
+            v-permission="'category:delete'"
             >删除</el-button
           >
         </template>

@@ -18,7 +18,7 @@ const whiteList = ['/login'] // no redirect whitelist
  * 2. 如果有token, 再访问/login,则跳转到首页，如果访问其他路由，从cookie中获取用户信息，然后跳转目标路由
  * 3. 如果没有token, 则从白名单中查看是否包含了目标路由，如果包含，则直接放行。如果不包含，则跳转到登录页面
  */
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, from, next) => {// 路由拦截器
   // start progress bar
   NProgress.start()
 

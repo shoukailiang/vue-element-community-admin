@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
     <!-- 条件查询 -->
-    <el-form :inline="true" :model="query" size="mini">
-      <el-form-item label="广告标题:">
+    <el-form :inline="true" :model="query" size="mini" >
+      <el-form-item label="广告标题:" v-permission="'advert:search'">
         <el-input v-model.trim="query.title"></el-input>
       </el-form-item>
-      <el-form-item label="状态:">
+      <el-form-item label="状态:" v-permission="'advert:search'">
         <el-select
           v-model="query.status"
           clearable
@@ -21,8 +21,9 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item>
-        <el-button icon="el-icon-search" type="primary" @click="queryData"
+      <el-form-item >
+          
+        <el-button icon="el-icon-search" type="primary" @click="queryData" v-permission="'advert:search'"
           >查询</el-button
         >
         <el-button icon="el-icon-refresh" @click="reload">重置</el-button>
@@ -30,6 +31,7 @@
           icon="el-icon-circle-plus-outline"
           type="primary"
           @click="openAdd"
+          v-permission="'advert:add'"
           >新增</el-button
         >
       </el-form-item>
@@ -79,12 +81,14 @@
             type="success"
             @click="handleEdit(scope.row.id)"
             size="mini"
+            v-permission="'advert:edit'"
             >编辑</el-button
           >
           <el-button
             type="danger"
             @click="handleDelete(scope.row.id)"
             size="mini"
+            v-permission="'advert:delete'"
             >删除</el-button
           >
         </template>
