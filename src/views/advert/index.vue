@@ -197,9 +197,9 @@ export default {
               type: response.code === 20000 ? "success" : "error",
               message: response.message,
             });
+             // 刷新列表数据
+            this.fetchData();
           });
-          // 刷新列表数据
-          this.fetchData();
         })
         .catch(() => {
           // 取消删除，不用理会
