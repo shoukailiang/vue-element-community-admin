@@ -39,13 +39,13 @@ module.exports = {
     before: require('./mock/mock-server.js'),
     // 解决跨域问题
     proxy: {
-      [process.env.VUE_APP_BASE_API+'/article']: { 
-        target: 'http://localhost:8001',
-        changeOrigin: true, // 开启代理服务器,    
-        pathRewrite: {
-          [ '^' + process.env.VUE_APP_BASE_API]: '' // /dev-api/test =>/dev-/test 
-        }
-      },
+      // [process.env.VUE_APP_BASE_API+'/article']: { 
+      //   target: 'http://localhost:8001',
+      //   changeOrigin: true, // 开启代理服务器,    
+      //   pathRewrite: {
+      //     [ '^' + process.env.VUE_APP_BASE_API]: '' // /dev-api/test =>/dev-/test 
+      //   }
+      // },
       [process.env.VUE_APP_BASE_API]: { // /dev-api
         target: ' https://mock.mengxuegu.com/mock/60142a212986555841710115/community-admin',
         changeOrigin: true, // 开启代理服务器,    

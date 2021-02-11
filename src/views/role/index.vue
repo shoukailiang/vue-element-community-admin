@@ -2,11 +2,11 @@
   <div class="app-container">
     <!-- 条件查询 -->
     <el-form :inline="true" :model="query" size="mini">
-      <el-form-item label="角色名称：">
+      <el-form-item label="角色名称：" v-permission="'role:search'">
         <el-input v-model.trim="query.name"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-search" type="primary" @click="queryData"
+        <el-button icon="el-icon-search" type="primary" @click="queryData" v-permission="'role:search'"
           >查询</el-button
         >
         <el-button icon="el-icon-refresh" @click="reload">重置</el-button>
@@ -15,6 +15,7 @@
           icon="el-icon-circle-plus-outline"
           type="primary"
           @click="openAdd"
+          v-permission="'role:add'"
           >新增</el-button
         >
 
@@ -69,18 +70,21 @@
             type="primary"
             @click="handlePermission(scope.row.id)"
             size="mini"
+            v-permission="'role:permission'"
             >分配权限</el-button
           >
           <el-button
             type="success"
             @click="handleEdit(scope.row.id)"
             size="mini"
+            v-permission="'role:edit'"
             >编辑</el-button
           >
           <el-button
             type="danger"
             @click="handleDelete(scope.row.id)"
             size="mini"
+            v-permission="'role:delete'"
             >删除</el-button
           >
         </template>

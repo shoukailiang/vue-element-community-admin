@@ -2,14 +2,14 @@
   <div class="app-container">
     <!-- 条件查询 -->
     <el-form :inline="true" :model="query" size="mini">
-      <el-form-item label="用户名:">
+      <el-form-item label="用户名:" v-permission="'user:search'">
         <el-input v-model.trim="query.username"></el-input>
       </el-form-item>
-      <el-form-item label="手机号:">
+      <el-form-item label="手机号:" v-permission="'user:search'">
         <el-input v-model.trim="query.mobile"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-search" type="primary" @click="queryData"
+        <el-button icon="el-icon-search" type="primary" @click="queryData" v-permission="'user:search'"
           >查询</el-button
         >
         <el-button icon="el-icon-refresh" @click="reload">重置</el-button>
@@ -17,6 +17,7 @@
           icon="el-icon-circle-plus-outline"
           type="primary"
           @click="openAdd"
+          v-permission="'user:add'"
           >新增</el-button
         >
       </el-form-item>
@@ -106,6 +107,7 @@
           <el-button
             type="success"
             @click="handleEdit(scope.row.id)"
+            v-permission="'user:edit'"
             size="mini"
             >编辑</el-button
           >
@@ -113,15 +115,17 @@
             type="danger"
             @click="handleDelete(scope.row.id)"
             size="mini"
+            v-permission="'user:delete'"
             >删除</el-button
           >
           <el-button
             type="primary"
             @click="handleRole(scope.row.id)"
             size="mini"
+            v-permission="'user:role'"
             >设置角色</el-button
           >
-          <el-button type="primary" @click="handlePwd(scope.row.id)" size="mini"
+          <el-button type="primary" @click="handlePwd(scope.row.id)" size="mini" v-permission="'user:password'"
             >密码修改</el-button
           >
         </template>
