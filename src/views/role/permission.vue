@@ -90,14 +90,27 @@ export default {
     // 查询角色之前所拥有的菜单ids ,然后进行回显
     async getMenuIdsByRoleId() {
       const { data } = await roleApi.getMenuIdsByRoleId(this.roleId);
-      this.menuIds = data;
+      // this.menuIds = data;
+      // 循环出每个菜单id,然后找到菜单树中的节点对象
+      data.forEach(id=>{
+        // 获取节点对象
+        const node =this.$refs.tree.getNode(id)
+        // 判断是否为子节点，如果是子节点就选中 ，否则不勾选
+        if(node.isLeaf){
+          this.$refs.tree.setChecked(id,true);
+        }
+      })
     },
 
     submitForm(formName) {
       // 获取所有被选中的菜单id
       const checkedMenuIds = this.$refs.tree.getCheckedKeys();
+
+      const checkedMenuParentIds = this.$refs.tree.getHalfCheckedKeys();
+
+      const menuIds = checkedMenuParentIds.concat(checkedMenuIds);
       // 调用保存角色权限菜单接口
-      roleApi.saveRoleMenu(this.roleId, checkedMenuIds).then((response) => {
+      roleApi.saveRoleMenu(this.roleId, menuIds).then((response) => {
         if (response.code === 20000) {
           this.$message({ message: "分配权限成功", type: "success" });
           //关闭窗口

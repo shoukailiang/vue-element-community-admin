@@ -47,7 +47,7 @@ router.beforeEach(async (to, from, next) => {// 路由拦截器
             // 继续访问目标路由且不会留下history记录
             next({ ...to, replace: true })
           }).catch(error => {
-            Message({ message: '获取用户权限信息失败', type: 'error' })
+            // Message({ message: '获取用户权限信息失败', type: 'error' })
           })
 
         } else {
