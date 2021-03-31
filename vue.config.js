@@ -36,7 +36,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js'),
+    // before: require('./mock/mock-server.js'),
     // 解决跨域问题
     proxy: {
       // [process.env.VUE_APP_BASE_API+'/article']: { 
