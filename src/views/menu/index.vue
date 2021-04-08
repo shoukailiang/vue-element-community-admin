@@ -11,13 +11,6 @@
           >查询</el-button
         >
         <el-button icon="el-icon-refresh" @click="reload">重置</el-button>
-        <el-button
-          icon="el-icon-circle-plus-outline"
-          type="primary"
-          @click="handleAdd(0)"
-          v-permission="'menu:add'"
-          >新增</el-button
-        >
       </el-form-item>
     </el-form>
 
@@ -62,49 +55,14 @@
         prop="sort"
         label="排序"
       ></el-table-column>
-      <el-table-column align="center" label="操作" width="260">
-        <template slot-scope="scope">
-          <el-button type="primary" @click="handleAdd(scope.row.id)" size="mini"
-            v-permission="'menu:add'"
-            >新增</el-button
-          >
-          <el-button
-            type="success"
-            @click="handleEdit(scope.row.id)"
-            size="mini"
-            v-permission="'menu:edit'"
-            >编辑</el-button
-          >
-          <el-button
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            size="mini"
-            v-permission="'menu:delete'"
-            >删除</el-button
-          >
-        </template>
-      </el-table-column>
     </el-table>
-
-    <!-- 新增或者编辑组件 -->
-    <edit
-      :title="edit.title"
-      :visible="edit.visible"
-      :formData="edit.formData"
-      :remoteClose="remoteClose"
-    />
   </div>
 </template>
 <script>
 import api from "@/api/menu";
 
-import Edit from "./edit";
-
 export default {
   name: "Menu", // 和对应路由表中配置的name值一致
-
-  components: { Edit },
-
   data() {
     return {
       list: [], // 列表数据
@@ -116,68 +74,14 @@ export default {
       },
     };
   },
-
   created() {
     this.fetchData();
   },
-
   methods: {
     async fetchData() {
       const { data } = await api.getList(this.query);
       this.list = data;
     },
-
-    // 新增菜单, id作为 新菜单 的 parentId
-    handleAdd(id) {
-      // id = 0 是在条件查询的地方点击的，是新增一级菜单 ，否则新增的是某菜单下的子菜单
-      this.edit.formData.parentId = id;
-      this.edit.title = "新增";
-      this.edit.visible = true;
-    },
-
-    // 关闭弹窗
-    remoteClose() {
-      this.edit.formData = {};
-      this.edit.visible = false;
-      this.fetchData();
-    },
-
-    // 编辑菜单
-    handleEdit(id) {
-      api.getById(id).then((response) => {
-        if (response.code === 20000) {
-          this.edit.formData = response.data;
-          //设置标题
-          this.edit.title = "编辑";
-          this.edit.visible = true;
-        }
-      });
-    },
-
-    // 删除菜单
-    handleDelete(id) {
-      this.$confirm("确认删除当前节点与子节点记录吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          // 发送删除请求
-          api.deleteById(id).then((response) => {
-            // 处理响应结果提示
-            this.$message({
-              type: response.code === 20000 ? "success" : "error",
-              message: response.message,
-            });
-          });
-          // 刷新列表数据
-          this.fetchData();
-        })
-        .catch(() => {
-          // 取消删除，不用理会
-        });
-    },
-
     // 重置
     reload() {
       this.query = {};

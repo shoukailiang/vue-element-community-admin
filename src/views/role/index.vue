@@ -10,14 +10,6 @@
           >查询</el-button
         >
         <el-button icon="el-icon-refresh" @click="reload">重置</el-button>
-        <el-button
-          v-if="!roleIds"
-          icon="el-icon-circle-plus-outline"
-          type="primary"
-          @click="openAdd"
-          v-permission="'role:add'"
-          >新增</el-button
-        >
 
         <el-button
           v-if="roleIds"
@@ -63,32 +55,6 @@
         prop="remark"
         label="备注"
       ></el-table-column>
-      <!--roleIds如果有值，则是用户管理组件传递过来了，则把操作列隐藏  -->
-      <el-table-column align="center" label="操作" v-if="!roleIds">
-        <template slot-scope="scope">
-          <el-button
-            type="primary"
-            @click="handlePermission(scope.row.id)"
-            size="mini"
-            v-permission="'role:permission'"
-            >分配权限</el-button
-          >
-          <el-button
-            type="success"
-            @click="handleEdit(scope.row.id)"
-            size="mini"
-            v-permission="'role:edit'"
-            >编辑</el-button
-          >
-          <el-button
-            type="danger"
-            @click="handleDelete(scope.row.id)"
-            size="mini"
-            v-permission="'role:delete'"
-            >删除</el-button
-          >
-        </template>
-      </el-table-column>
     </el-table>
 
     <!-- 分页组件 -->
@@ -103,32 +69,14 @@
     >
     </el-pagination>
 
-    <edit
-      :title="edit.title"
-      :visible="edit.visible"
-      :formData="edit.formData"
-      :remoteClose="remoteClose"
-    />
 
-    <!-- 设置权限组件 -->
-    <permission
-      title="分配权限"
-      :visible="per.visible"
-      :remoteClose="remotePerClose"
-      :roleId="per.roleId"
-    />
   </div>
 </template>
 <script>
 import api from "@/api/role";
 
-import Edit from "./edit";
-import Permission from "./permission";
-
 export default {
   name: "Role", // 和对应路由表中配置的name值一致
-
-  components: { Edit, Permission },
 
   // 当用户管理模块, 将当前这个组件文件作为子组件时,进行接收父组件传递过来的属性
   props: {
@@ -195,41 +143,6 @@ export default {
         });
       }
     },
-
-    // 编辑
-    async handleEdit(id) {
-      // 查询详情
-      const { data } = await api.getById(id);
-      this.edit.formData = data;
-      //弹出窗口
-      this.edit.title = "编辑";
-      this.edit.visible = true;
-    },
-
-    // 删除
-    handleDelete(id) {
-      this.$confirm("确认删除这条记录吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          // 发送删除请求
-          api.deleteById(id).then((response) => {
-            // 处理响应结果提示
-            this.$message({
-              type: response.code === 20000 ? "success" : "error",
-              message: response.message,
-            });
-          });
-          // 刷新列表数据
-          this.fetchData();
-        })
-        .catch(() => {
-          // 取消删除，不用理会
-        });
-    },
-
     // val 是切换之后的每页显示多少条
     handleSizeChange(val) {
       this.page.size = val;
@@ -253,25 +166,6 @@ export default {
       this.fetchData();
     },
 
-    // 新增
-    openAdd() {
-      this.edit.visible = true;
-      this.edit.title = "新增";
-    },
-
-    // 关闭弹窗
-    remoteClose() {
-      this.edit.formData = {};
-      this.edit.visible = false;
-      this.fetchData();
-    },
-
-    // 分配权限
-    handlePermission(id) {
-      // 将点击的那个角色id传递给子组件, 进行查询当前角色已经拥有的菜单ids
-      this.per.roleId = id;
-      this.per.visible = true;
-    },
     // 关闭分配权限弹窗
     remotePerClose() {
       this.per.visible = false;
