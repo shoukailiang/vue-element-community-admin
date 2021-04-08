@@ -27,7 +27,6 @@
             value: 'id',
             label: 'name',
           }"
-          clearable
         ></el-cascader>
       </el-form-item>
       <el-form-item label="主图：">

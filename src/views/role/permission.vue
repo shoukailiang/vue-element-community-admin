@@ -22,7 +22,6 @@
         node-key="id"
         :props="{ children: 'children', label: 'name' }"
         accordion
-        :default-checked-keys="menuIds"
       >
       </el-tree>
 
@@ -59,7 +58,6 @@ export default {
     return {
       menuList: [], // 存储所有菜单
       loading: false, // 加载中, true 则显示加载中, false 不显示加载中
-      menuIds: [], // 默认选中的菜单ids
     };
   },
 
@@ -124,7 +122,6 @@ export default {
     // 关闭窗口
     handleClose() {
       this.menuList = [];
-      this.menuIds = [];
       this.remoteClose();
     },
   },
