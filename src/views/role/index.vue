@@ -2,15 +2,7 @@
   <div class="app-container">
     <!-- 条件查询 -->
     <el-form :inline="true" :model="query" size="mini">
-      <el-form-item label="角色名称：" v-permission="'role:search'">
-        <el-input v-model.trim="query.name"></el-input>
-      </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-search" type="primary" @click="queryData" v-permission="'role:search'"
-          >查询</el-button
-        >
-        <el-button icon="el-icon-refresh" @click="reload">重置</el-button>
-
         <el-button
           v-if="roleIds"
           icon="el-icon-circle-plus-outline"
@@ -152,17 +144,6 @@ export default {
     // 当页码改变后触发到此方法，val 是当前点击（或输入）的那个页码，
     handleCurrentChange(val) {
       this.page.current = val;
-      this.fetchData();
-    },
-
-    // 条件查询
-    queryData() {
-      this.page.current = 1;
-      this.fetchData();
-    },
-
-    reload() {
-      this.query = {};
       this.fetchData();
     },
 

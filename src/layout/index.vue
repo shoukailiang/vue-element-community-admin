@@ -6,11 +6,9 @@
       @click="handleClickOutside"
     />
     <sidebar class="sidebar-container" />
-    <div class="hasTagsView main-container">
+    <div class="main-container">
       <div :class="{ 'fixed-header': fixedHeader }">
         <navbar />
-        <!-- 使用标签导航组件 -->
-        <tags-view />
       </div>
       <app-main />
     </div>
@@ -19,7 +17,7 @@
 
 <script>
 // 1. 导入标签导航组件TagsView
-import { Navbar, Sidebar, AppMain, TagsView } from "./components";
+import { Navbar, Sidebar, AppMain } from "./components";
 import ResizeMixin from "./mixin/ResizeHandler";
 
 export default {
@@ -28,7 +26,6 @@ export default {
     Navbar,
     Sidebar,
     AppMain,
-    TagsView, // 2. 引入 TagsView 组件
   },
   mixins: [ResizeMixin],
   computed: {

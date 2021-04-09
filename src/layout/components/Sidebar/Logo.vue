@@ -23,6 +23,7 @@ export default {
     }
   },
   data() {
+    // SKL
     return {
       title: 'IT Alley 社区后台管理',
       logo: require('@/assets/logo.png')

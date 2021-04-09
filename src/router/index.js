@@ -106,18 +106,6 @@ export const constantRoutes = [
         component: () => import('@/views/user/index'),
         meta: { title: '用户管理', icon: 'el-icon-user-solid' }
       },
-      {
-        path: 'role',
-        name: 'Role',
-        component: () => import('@/views/role/index'),
-        meta: { title: '角色管理', icon: 'el-icon-coin' }
-      },
-      {
-        path: 'menu',
-        name: 'Menu',
-        component: () => import('@/views/menu/index'),
-        meta: { title: '菜单管理', icon: 'el-icon-menu' }
-      }
     ]
   },
 
@@ -132,20 +120,6 @@ export const constantRoutes = [
       }
     ]
   },
-  
-  // 标签导航刷新
-  {
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index')
-      }
-    ]
-  },
-
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
