@@ -151,7 +151,7 @@ export default {
       list: [],
       page: {
         current: 1,
-        size: 20,
+        size: 10,
         total: 0,
       },
       query: {}, // 查询条件

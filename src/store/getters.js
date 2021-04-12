@@ -1,9 +1,6 @@
 const getters = {
   sidebar: state => state.app.sidebar,
   device: state => state.app.device,
-  token: state => state.user.token,
-  avatar: state => state.user.avatar,
-  name: state => state.user.name,
 
   // 添加菜单相关的状态
   init: state => state.menu.init,
