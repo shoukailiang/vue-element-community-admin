@@ -3,14 +3,14 @@ import Vuex from 'vuex'
 import getters from './getters'
 import app from './modules/app'
 import settings from './modules/settings'
-import menu from './modules/menu'
+import role from './modules/role'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
     app,
     settings,
-    menu
+    role
   },
   getters
 })

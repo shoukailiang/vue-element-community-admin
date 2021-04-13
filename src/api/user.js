@@ -51,14 +51,7 @@ export function getRoleIdsByUserId(id) {
   })
 }
 
-// 保存用户拥有角色
-export function saveUserRole(id, roleIds) {
-  return request({
-    url: `/system/user/${id}/role/save`,
-    method: 'post',
-    data: roleIds
-  })
-}
+
 
 // 提交修改新密码
 export function updatePassword(data) {
@@ -69,10 +62,10 @@ export function updatePassword(data) {
   })
 }
 
-// 查询当前登录用户所拥有的菜单和按钮权限
-export function getUserMenuList(userId) {
+// 查询当前登录用户所拥有的权限
+export function getUserRole(userId) {
   return request({
-    url: `/system/menu/user/${userId}`,
+    url: `/system/role/${userId}`,
     method: 'get'
   })
 }

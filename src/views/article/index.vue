@@ -2,7 +2,6 @@
   <div class="app-container">
     <!-- 条件查询 -->
     <el-form
-      v-permission="'article:search'"
       :inline="true"
       :model="query"
       size="mini"
@@ -84,7 +83,6 @@
       <el-table-column align="left" label="操作" width="210">
         <template slot-scope="scope">
           <el-button
-            v-permission="'article:view'"
             type="primary"
             @click="openView(scope.row.id)"
             size="mini"
@@ -93,7 +91,6 @@
 
           <!-- 审核：只有status===1 才显示，其他不显示。删除：只有status !==0 才显示，其他不显示-->
           <el-button
-            v-permission="'article:audit'"
             v-if="scope.row.status === 1"
             type="success"
             @click="openAudit(scope.row.id)"
@@ -102,7 +99,6 @@
           >
 
           <el-button
-            v-permission="'article:delete'"
             v-if="scope.row.status !== 0"
             type="danger"
             @click="handleDelete(scope.row.id)"

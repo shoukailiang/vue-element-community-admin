@@ -2,14 +2,14 @@
   <div class="app-container">
     <!-- 条件查询 -->
     <el-form :inline="true" :model="query" size="mini">
-      <el-form-item label="用户名:" v-permission="'user:search'">
+      <el-form-item label="用户名:" >
         <el-input v-model.trim="query.username"></el-input>
       </el-form-item>
-      <el-form-item label="手机号:" v-permission="'user:search'">
+      <el-form-item label="手机号:" >
         <el-input v-model.trim="query.mobile"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-search" type="primary" @click="queryData" v-permission="'user:search'"
+        <el-button icon="el-icon-search" type="primary" @click="queryData" 
           >查询</el-button
         >
         <el-button icon="el-icon-refresh" @click="reload">重置</el-button>
@@ -17,7 +17,6 @@
           icon="el-icon-circle-plus-outline"
           type="primary"
           @click="openAdd"
-          v-permission="'user:add'"
           >新增</el-button
         >
       </el-form-item>
@@ -107,7 +106,6 @@
           <el-button
             type="success"
             @click="handleEdit(scope.row.id)"
-            v-permission="'user:edit'"
             size="mini"
             >编辑</el-button
           >
@@ -115,17 +113,9 @@
             type="danger"
             @click="handleDelete(scope.row.id)"
             size="mini"
-            v-permission="'user:delete'"
             >删除</el-button
           >
-          <el-button
-            type="primary"
-            @click="handleRole(scope.row.id)"
-            size="mini"
-            v-permission="'user:role'"
-            >设置角色</el-button
-          >
-          <el-button type="primary" @click="handlePwd(scope.row.id)" size="mini" v-permission="'user:password'"
+          <el-button type="primary" @click="handlePwd(scope.row.id)" size="mini" 
             >密码修改</el-button
           >
         </template>
@@ -152,11 +142,6 @@
       :remoteClose="remoteClose"
     />
 
-    <el-dialog title="设置角色" :visible.sync="role.visible" width="65%">
-      <!-- roleIds是当前用户所拥有的角色id, saveUserRole事件是子组件进行触发提交选择的角色id -->
-      <Role :roleIds="role.roleIds" @saveUserRole="saveUserRole" />
-    </el-dialog>
-
     <!-- 密码修改 -->
     <Password
       title="修改密码"
@@ -171,20 +156,19 @@
 import * as api from "@/api/user";
 
 import Edit from "./edit";
-import Role from "../role";
 import Password from "./password";
 
 export default {
   name: "User", // 和对应路由表中配置的name值一致
 
-  components: { Edit, Role, Password },
+  components: { Edit, Password },
 
   data() {
     return {
       list: [],
       page: {
         current: 1,
-        size: 20,
+        size: 10,
         total: 0,
       },
 
@@ -194,15 +178,6 @@ export default {
         title: "",
         visible: false,
         formData: {},
-      },
-
-      role: {
-        // 弹出设置角色组件
-        visible: false,
-        // 传递到子组件中时,至少会传递一个空数据[], 子组件判断是否有roleIds值
-        roleIds: [], // 封装当前用户所拥有的 角色id
-
-        userId: null, // 点击哪个用户，就是哪个用户id,当保存用户角色时，需要使用
       },
 
       pwd: {
@@ -288,17 +263,6 @@ export default {
         });
     },
 
-    // 设置角色
-    handleRole(id) {
-      this.role.userId = id;
-      api.getRoleIdsByUserId(id).then((response) => {
-        // 角色id 传递给子组件
-        this.role.roleIds = response.data;
-        // 弹出
-        this.role.visible = true;
-      });
-    },
-
     // 弹出新增窗口
     openAdd() {
       this.edit.title = "新增——默认密码与用户名一致";
@@ -310,20 +274,6 @@ export default {
       this.edit.formData = {};
       this.edit.visible = false;
       this.fetchData();
-    },
-
-    // 角色列表子组件会触发此方法来保存当前用户选择的角色id
-    saveUserRole(roleIds) {
-      // console.log('saveUserRole', roleIds)
-      // 保存用户角色信息
-      api.saveUserRole(this.role.userId, roleIds).then((response) => {
-        if (response.code === 20000) {
-          this.$message({ message: "分配角色成功", type: "success" });
-          this.role.visible = false;
-        } else {
-          this.$message({ message: "分配角色失败", type: "error" });
-        }
-      });
     },
 
     // 关闭密码窗口

@@ -39,11 +39,11 @@ router.beforeEach(async (to, from, next) => {// 路由拦截器
       // 从cookie中获取用户信息
       const hasGetUserInfo = PcCookie.get(Key.userInfoKey)
       if (hasGetUserInfo) {
-        // 如果有用户信息，则通过用户id来获取当前用户所拥有的菜单和按钮权限
+        // 如果有用户信息
         if (store.getters.init === false) {
 
           // 还未查询用户权限信息，下面则触发 action 来进行查询
-          store.dispatch('menu/GetUserMenu').then(() => {
+          store.dispatch('role/GetUserRole').then(() => {
             // 继续访问目标路由且不会留下history记录
             next({ ...to, replace: true })
           }).catch(error => {
