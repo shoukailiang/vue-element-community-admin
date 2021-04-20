@@ -144,7 +144,7 @@ export default {
         formData: {
           imageUrl: null, // 不声明，上传后无法回显展示图片
         },
-        oldImageUrl: null, // 是编辑时，查询出来的原始图片
+        oldImageUrl: null, 
       },
     };
   },
@@ -169,6 +169,7 @@ export default {
     async handleEdit(id) {
       const response = await api.getById(id);
       if (response.code === 20000) {
+        // console.log(response.data)
         this.edit.formData = response.data;
         // 修改前的图片url
         this.edit.oldImageUrl = response.data.imageUrl;

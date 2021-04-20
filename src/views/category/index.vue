@@ -118,19 +118,16 @@ const statusOptions = [
 export default {
   name: "Category", // 和对应路由表中配置的name值一致
   components: {
-    Edit, // Edit: Edit
+    Edit,
   },
   data() {
     return {
       list: [], // 列表数据
-
       page: {
-        // 分页对象
         current: 1, // 当前页码
         size: 10, // 每页显示多少条
         total: 0, // 总记录数
       },
-
       query: {}, // 查询条件
       statusOptions, // 状态下拉框数组 statusOptions: statusOptions
       edit: {
@@ -196,7 +193,7 @@ export default {
           this.fetchData();
         })
         .catch(() => {
-          // 取消删除，不用理会
+          console.log("点击取消")
         });
     },
 

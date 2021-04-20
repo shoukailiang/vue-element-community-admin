@@ -22,7 +22,7 @@
         <el-card>
           <!-- 
             注意：echarts 在初始化实例的时候就要拿到数据，有数据就会展示出来
-           -->
+          -->
           <!-- 饼状图：各技术频道文章统计 -->
           <bar-chart
             v-if="flag"
@@ -40,7 +40,6 @@ import PieChart from "./components/PieChart";
 import BarChart from "./components/BarChart";
 import PanelGroup from "./components/PanelGroup";
 
-// 1. 导入home.js
 import api from "@/api/home";
 
 export default {

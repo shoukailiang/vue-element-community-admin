@@ -93,12 +93,10 @@ import api from "@/api/advert";
 export default {
   props: {
     title: {
-      // 弹窗的标题
       type: String,
       default: "",
     },
     visible: {
-      // 弹出窗口，true弹出
       type: Boolean,
       default: false,
     },
@@ -108,7 +106,7 @@ export default {
       default: {},
     },
     oldImageUrl: String, // 编辑时，查询出来的那张图片地址
-    remoteClose: Function, // 用于关闭窗口
+    remoteClose: Function, 
   },
 
   data() {
@@ -138,7 +136,6 @@ export default {
     handleClose() {
       // 将表单清空
       this.$refs["formData"].resetFields();
-      // 注意不可以通过  this.visible = false来关闭，因为它是父组件的属性
       this.remoteClose();
     },
 
@@ -202,14 +199,11 @@ export default {
     // 删除图片
     deleteImg() {
       // 如果之前有图片，则删除之前的
-      // console.log(this.formData.imageUrl)
-      // console.log(this.oldImageUrl)
       if (
-        this.formData.imageUrl &&
-        this.formData.imageUrl !== this.oldImageUrl
-      ) {
+        this.formData.imageUrl ) {
+        // console.log("上传")
         // 发送请求删除
-        commonApi.deleteImg(this.formData.imageUrl);
+        commonApi.deleteImg(this.oldImageUrl);
       }
     },
   },

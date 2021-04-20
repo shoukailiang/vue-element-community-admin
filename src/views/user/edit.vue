@@ -63,12 +63,10 @@ import * as api from "@/api/user";
 export default {
   props: {
     title: {
-      // 弹窗的标题
       type: String,
       default: "",
     },
     visible: {
-      // 弹出窗口，true弹出
       type: Boolean,
       default: false,
     },
@@ -78,7 +76,7 @@ export default {
       default: {},
     },
 
-    remoteClose: Function, // 用于关闭窗口
+    remoteClose: Function,
   },
 
   data() {
@@ -88,9 +86,9 @@ export default {
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
           {
-            min: 6,
+            min: 4,
             max: 30,
-            message: "长度在 6 到 30 个字符",
+            message: "长度在 4 到 30 个字符",
             trigger: "blur",
           },
         ],

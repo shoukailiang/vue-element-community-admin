@@ -105,7 +105,7 @@ export default {
       page: {
         // 分页对象
         current: 1,
-        size: 20,
+        size: 10,
         total: 0,
       },
 
@@ -141,6 +141,7 @@ export default {
       // console.log('编辑', id)
       api.getById(id).then((response) => {
         if (response.code === 20000) {
+          // console.log(response.data)
           this.edit.formData = response.data;
           //弹出窗口
           this.edit.visible = true;
@@ -169,7 +170,7 @@ export default {
           this.fetchData();
         })
         .catch(() => {
-          // 取消删除，不用理会
+          console.log("取消")
         });
     },
 
@@ -193,26 +194,21 @@ export default {
 
     // 条件查询
     queryData() {
-      // 将页码变为第1页
       this.page.current = 1;
       this.fetchData();
     },
 
-    // 重置
     reload() {
       this.query = {};
       this.fetchData();
     },
 
-    // 打开新增窗口
     openAdd() {
-      // 打开时，重新查询正常状态的分类数据
       this.getCategoryList();
       this.edit.visible = true;
       this.edit.title = "新增";
     },
 
-    // 关闭弹窗
     remoteClose() {
       this.edit.formData = {};
       this.edit.visible = false;

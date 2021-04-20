@@ -16,10 +16,10 @@
           filterable
           style="width: 120px"
         >
+          <el-option label="已删除" :value="0"></el-option>
           <el-option label="未审核" :value="1"></el-option>
           <el-option label="审核通过" :value="2"></el-option>
           <el-option label="审核未通过" :value="3"></el-option>
-          <el-option label="已删除" :value="0"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -61,13 +61,10 @@
       </el-table-column>
       <el-table-column align="center" prop="status" label="状态">
         <template slot-scope="scope">
-          <!--  0: 已删除, 1:未审核，2:审核通过 3: 审核未通过-->
           <el-tag v-if="scope.row.status === 0" type="danger">已删除</el-tag>
           <el-tag v-if="scope.row.status === 1">未审核</el-tag>
           <el-tag v-if="scope.row.status === 2" type="success">审核通过</el-tag>
-          <el-tag v-if="scope.row.status === 3" type="warning"
-            >审核未通过</el-tag
-          >
+          <el-tag v-if="scope.row.status === 3" type="warning">审核未通过</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -86,9 +83,7 @@
             type="primary"
             @click="openView(scope.row.id)"
             size="mini"
-            >查看</el-button
-          >
-
+            >查看</el-button>
           <!-- 审核：只有status===1 才显示，其他不显示。删除：只有status !==0 才显示，其他不显示-->
           <el-button
             v-if="scope.row.status === 1"
@@ -128,12 +123,12 @@
       :id="audit.id"
       :isAudit="audit.isAudit"
     />
+
   </div>
 </template>
 <script>
 import api from "@/api/article";
 
-// 格式化日期
 import { format } from "@/utils/date";
 
 import Audit from "./audit";
@@ -252,7 +247,7 @@ export default {
           this.fetchData();
         })
         .catch(() => {
-          // 取消删除，不用理会
+          console.log("点击取消")
         });
     },
   },

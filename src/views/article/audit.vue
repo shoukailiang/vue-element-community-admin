@@ -18,7 +18,7 @@
         <el-cascader
           disabled
           :options="labelOptions"
-          style="display: block"
+          class="cascader-con"
           v-model="formData.labelIds"
           :props="{
             multiple: true,
@@ -32,7 +32,7 @@
       <el-form-item label="主图：">
         <img
           :src="formData.imageUrl"
-          style="width: 178px; height: 178px; display: block"
+          class="article-img"
         />
       </el-form-item>
       <el-form-item label="是否公开：">
@@ -63,7 +63,7 @@
 import api from "@/api/article";
 import categoryApi from "@/api/category";
 
-// 引入 mavonEditor 组件和样式, 一定不要少了大括号
+// 引入 mavonEditor 组件和样式
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 
@@ -107,13 +107,11 @@ export default {
   },
 
   methods: {
-    // 关闭窗口
     handleClose() {
       // 触发父组件关闭窗口
       this.remoteClose();
     },
 
-    // 审核通过触发的方法
     auditSuccess() {
       this.$confirm("确认审核通过吗?", "提示", {
         confirmButtonText: "确定",
@@ -121,23 +119,19 @@ export default {
         type: "warning",
       })
         .then(() => {
-          // 发送审核通过请求
           api.auditSuccess(this.id).then((response) => {
-            // 提示信息
             this.$message({
               type: "success",
               message: "审核通过!",
             });
-            // 关闭弹窗
             this.remoteClose();
           });
         })
         .catch(() => {
-          // 取消删除，不用理会
+          console.log("点击取消")
         });
     },
 
-    // 审核不通过触发的方法
     auditFail() {
       this.$confirm("确认审核不通过吗?", "提示", {
         confirmButtonText: "确定",
@@ -147,7 +141,6 @@ export default {
         .then(() => {
           // 发送审核通过请求
           api.auditFail(this.id).then((response) => {
-            // 提示信息
             this.$message({
               type: "success",
               message: "审核不通过!",
@@ -157,7 +150,7 @@ export default {
           });
         })
         .catch(() => {
-          // 取消删除，不用理会
+          console.log("点击取消")
         });
     },
 
@@ -175,3 +168,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.cascader-con{
+  display: block;
+}
+.article-img{
+  width: 178px; 
+  height: 178px; 
+  display: block;
+}
+</style>

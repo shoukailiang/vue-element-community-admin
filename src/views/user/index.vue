@@ -259,7 +259,7 @@ export default {
           this.fetchData();
         })
         .catch(() => {
-          // 取消删除，不用理会
+          console.log("取消")
         });
     },
 

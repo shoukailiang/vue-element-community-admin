@@ -45,12 +45,10 @@ import api from "@/api/label";
 export default {
   props: {
     title: {
-      // 弹窗的标题
       type: String,
       default: "",
     },
     visible: {
-      // 弹出窗口，true弹出
       type: Boolean,
       default: false,
     },
@@ -64,7 +62,7 @@ export default {
       type: Array,
       default: [],
     },
-    remoteClose: Function, // 用于关闭窗口
+    remoteClose: Function,
   },
 
   data() {
@@ -87,7 +85,6 @@ export default {
     handleClose() {
       // 表单清空
       this.$refs["formData"].resetFields();
-      // 调用父组件中的方法关闭窗口
       this.remoteClose();
     },
 
