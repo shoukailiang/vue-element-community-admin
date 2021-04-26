@@ -95,7 +95,6 @@ export default {
   },
 
   watch: {
-    // 监听
     visible(val) {
       // 监听visible的变化,将改变之后的值作为参数传入
       if (val) {
@@ -139,13 +138,11 @@ export default {
         type: "warning",
       })
         .then(() => {
-          // 发送审核通过请求
           api.auditFail(this.id).then((response) => {
             this.$message({
               type: "success",
               message: "审核不通过!",
             });
-            // 关闭弹窗
             this.remoteClose();
           });
         })

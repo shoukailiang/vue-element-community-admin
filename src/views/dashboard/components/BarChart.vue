@@ -80,7 +80,7 @@ export default {
         // color: ['#3398DB'],
         title: {
           // 标题
-          text: "近6个月发布的文章数",
+          text: "文章发布数柱状图",
           left: "center",
         },
         tooltip: {

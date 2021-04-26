@@ -124,7 +124,7 @@ const statusOptions = [
 ];
 
 export default {
-  name: "Advert", // 和对应路由表中配置的name值一致
+  name: "Advert", 
 
   components: { Edit },
 
@@ -179,7 +179,6 @@ export default {
       }
     },
 
-    // 删除
     handleDelete(id) {
       this.$confirm("确认删除这条记录吗?", "提示", {
         confirmButtonText: "确定",
@@ -187,53 +186,43 @@ export default {
         type: "warning",
       })
         .then(() => {
-          // 发送删除请求
           api.deleteById(id).then((response) => {
-            // 处理响应结果提示
             this.$message({
               type: response.code === 20000 ? "success" : "error",
               message: response.message,
             });
-             // 刷新列表数据
             this.fetchData();
           });
         })
         .catch(() => {
-          // 取消删除，不用理会
+          console.log("取消")
         });
     },
 
-    // val 是切换之后的每页显示多少条
     handleSizeChange(val) {
       this.page.size = val;
       this.fetchData();
     },
 
-    // 当页码改变后触发到此方法，val 是当前点击（或输入）的那个页码，
     handleCurrentChange(val) {
       this.page.current = val;
       this.fetchData();
     },
 
-    // 条件查询
     queryData() {
-      // 将页码变为1，第1页
       this.page.current = 1;
       this.fetchData();
     },
 
-    // 重置
     reload() {
       this.query = {};
       this.fetchData();
     },
 
-    // 打开窗口
     openAdd() {
       this.edit.visible = true;
       this.edit.title = "新增";
     },
-    // 关闭窗口
     remoteClose() {
       // 不声明，上传后无法回显展示图片
       this.edit.formData = { imageUrl: null };

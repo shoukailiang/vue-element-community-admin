@@ -159,7 +159,7 @@ import Edit from "./edit";
 import Password from "./password";
 
 export default {
-  name: "User", // 和对应路由表中配置的name值一致
+  name: "User", 
 
   components: { Edit, Password },
 
@@ -203,32 +203,26 @@ export default {
       this.page.total = data.total;
     },
 
-    // val 是切换之后的每页显示多少条
     handleSizeChange(val) {
       this.page.size = val;
       this.fetchData();
     },
 
-    // 当页码改变后触发到此方法，val 是当前点击（或输入）的那个页码，
     handleCurrentChange(val) {
       this.page.current = val;
       this.fetchData();
     },
 
-    // 条件查询
     queryData() {
-      // 将页码变为1，第1页
       this.page.current = 1;
       this.fetchData();
     },
 
-    // 重置
     reload() {
       this.query = {};
       this.fetchData();
     },
 
-    // 编辑
     handleEdit(id) {
       api.getById(id).then((response) => {
         if (response.code === 20000) {
@@ -239,7 +233,6 @@ export default {
       });
     },
 
-    // 删除
     handleDelete(id) {
       this.$confirm("确认删除这条记录吗?", "提示", {
         confirmButtonText: "确定",
@@ -247,15 +240,12 @@ export default {
         type: "warning",
       })
         .then(() => {
-          // 发送删除请求
           api.deleteById(id).then((response) => {
-            // 处理响应结果提示
             this.$message({
               type: response.code === 20000 ? "success" : "error",
               message: response.message,
             });
           });
-          // 刷新列表数据
           this.fetchData();
         })
         .catch(() => {
@@ -263,13 +253,11 @@ export default {
         });
     },
 
-    // 弹出新增窗口
     openAdd() {
       this.edit.title = "新增——默认密码与用户名一致";
       this.edit.visible = true;
     },
 
-    // 关闭弹窗
     remoteClose() {
       this.edit.formData = {};
       this.edit.visible = false;

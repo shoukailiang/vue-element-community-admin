@@ -82,7 +82,7 @@ export default {
       this.chart.setOption({
         title: {
           // 标题
-          text: "各技术频道文章统计",
+          text: "分类文章的统计饼图",
           left: "center", // 居中
         },
         tooltip: {

@@ -48,9 +48,9 @@ export default {
 
   data() {
     return {
-      userTotal: 0, // 总用户
-      articleTotal: 0, //总文章
-      questionTotal: 0, // 总提问
+      userTotal: 0, 
+      articleTotal: 0, 
+      questionTotal: 0, 
 
       flag: false, // 判断是否显示图表组件
       categoryTotal: {}, // 每个分类下的文章数
@@ -59,9 +59,7 @@ export default {
   },
 
   mounted() {
-    // 查询面板中相关的总记录数
     this.getTotal();
-    // 统计各技术频道文章数和近6个月发布文章数
     this.getAricleTotal();
   },
 
@@ -81,11 +79,9 @@ export default {
     },
 
     async getAricleTotal() {
-      // 统计各技术频道文章数
       const { data: categoryTotal } = await api.getCategoryTotal();
       this.categoryTotal = categoryTotal;
 
-      // 近6个月发布文章数
       const { data: monthArticleTotal } = await api.getMonthArticleTotal();
       this.monthArticleTotal = monthArticleTotal;
 

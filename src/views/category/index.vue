@@ -1,6 +1,5 @@
 <template>
   <div class="app-container">
-    <!-- 条件查询 -->
     <el-form :inline="true" :model="query" size="mini">
       <el-form-item label="分类名称：" >
         <el-input v-model.trim="query.name"></el-input>
@@ -116,7 +115,7 @@ const statusOptions = [
 ];
 
 export default {
-  name: "Category", // 和对应路由表中配置的name值一致
+  name: "Category", 
   components: {
     Edit,
   },
@@ -163,10 +162,8 @@ export default {
     },
 
     handleEdit(id) {
-      // 通过id查询详情
       api.getById(id).then((response) => {
         if (response.code === 20000) {
-          // 将查询的详情传递
           this.edit.formData = response.data;
           this.edit.title = "编辑";
           this.edit.visible = true;
@@ -197,25 +194,20 @@ export default {
         });
     },
 
-    // val 是切换之后的每页显示多少条
     handleSizeChange(val) {
       this.page.size = val;
       this.fetchData();
     },
 
-    // 当页码改变后触发到此方法，val 是当前点击（或输入）的那个页码，
     handleCurrentChange(val) {
       this.page.current = val;
       this.fetchData();
     },
 
-    // 条件查询
     queryData() {
-      // 将页码变为1，第1页
       this.page.current = 1;
       this.fetchData();
     },
-    // 重置
     reload() {
       this.query = {};
       this.fetchData();
@@ -226,7 +218,6 @@ export default {
       this.edit.visible = false;
       this.fetchData();
     },
-    // 打开新增窗口
     openAdd() {
       this.edit.visible = true;
       this.edit.title = "新增";

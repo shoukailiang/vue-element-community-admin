@@ -132,14 +132,11 @@ export default {
   },
 
   methods: {
-    // 关闭窗口
     handleClose() {
-      // 将表单清空
       this.$refs["formData"].resetFields();
       this.remoteClose();
     },
 
-    // 提交表单数据
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -196,7 +193,6 @@ export default {
         });
     },
 
-    // 删除图片
     deleteImg() {
       // 如果之前有图片，则删除之前的
       if (

@@ -94,7 +94,7 @@ import categoryApi from "@/api/category";
 import Edit from "./edit";
 
 export default {
-  name: "Lable", // 和对应路由表中配置的name值一致
+  name: "Lable", 
 
   components: { Edit },
 
@@ -192,7 +192,6 @@ export default {
       });
     },
 
-    // 条件查询
     queryData() {
       this.page.current = 1;
       this.fetchData();

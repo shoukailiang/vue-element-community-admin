@@ -79,7 +79,6 @@ export default {
   },
 
   methods: {
-    // 关闭窗口
     handleClose() {
       // 将表单清空
       this.$refs["formData"].resetFields();

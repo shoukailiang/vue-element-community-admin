@@ -134,7 +134,7 @@ import { format } from "@/utils/date";
 import Audit from "./audit";
 
 export default {
-  name: "Article", // 和对应路由表中配置的name值一致
+  name: "Article", 
   components: { Audit },
 
   data() {
@@ -162,7 +162,6 @@ export default {
   },
 
   methods: {
-    // 分页条件查询文章列表
     async fetchData() {
       const { data } = await api.getList(
         this.query,
@@ -173,7 +172,6 @@ export default {
       this.page.total = data.total;
     },
 
-    // 组件模板中调用此方法格式化日期
     getFormat(date) {
       return format(date);
     },
@@ -189,19 +187,16 @@ export default {
       this.fetchData();
     },
 
-    // 条件查询方法
     queryData() {
       this.page.current = 1;
       this.fetchData();
     },
 
-    // 刷新重置
     reload() {
       this.query = {};
       this.fetchData();
     },
 
-    // 打开审核文章窗口
     openAudit(id) {
       // 文章id
       this.audit.id = id;
@@ -211,13 +206,11 @@ export default {
       this.audit.visible = true;
     },
 
-    // 关闭窗口
     remoteClose() {
       this.audit.visible = false;
       this.fetchData();
     },
 
-    // 查看详情页
     openView(id) {
       // 文章id
       this.audit.id = id;
@@ -227,7 +220,6 @@ export default {
       this.audit.visible = true;
     },
 
-    // 删除文章
     handleDelete(id) {
       this.$confirm("确认删除这条记录吗?", "提示", {
         confirmButtonText: "确定",
@@ -235,15 +227,12 @@ export default {
         type: "warning",
       })
         .then(() => {
-          // 发送删除请求
           api.deleteById(id).then((response) => {
-            // 处理响应结果提示
             this.$message({
               type: response.code === 20000 ? "success" : "error",
               message: response.message,
             });
           });
-          // 刷新列表数据
           this.fetchData();
         })
         .catch(() => {

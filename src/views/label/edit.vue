@@ -81,14 +81,12 @@ export default {
   },
 
   methods: {
-    // 关闭弹窗
     handleClose() {
       // 表单清空
       this.$refs["formData"].resetFields();
       this.remoteClose();
     },
 
-    // 提交表单数据
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -101,7 +99,6 @@ export default {
       });
     },
 
-    // 调用接口提交数据
     async submitData() {
       let response = null;
 
