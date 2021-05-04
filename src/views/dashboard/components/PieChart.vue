@@ -1,5 +1,4 @@
 <template>
-  <!-- 具备一个宽高的dom容器 -->
   <div
     ref="main"
     :class="className"
@@ -8,7 +7,6 @@
 </template>
 
 <script>
-// 引入
 import echarts from "echarts";
 // 引入主题
 require("echarts/theme/macarons");

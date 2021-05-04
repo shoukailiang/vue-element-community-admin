@@ -63,7 +63,6 @@ module.exports = {
       //   }
       // },
       [process.env.VUE_APP_BASE_API]: { // /dev-api
-        // target: ' https://mock.mengxuegu.com/mock/60142a212986555841710115/community-admin',
         target: 'http://localhost:6001',
         changeOrigin: true, // 开启代理服务器,    
         pathRewrite: {

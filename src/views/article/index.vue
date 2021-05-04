@@ -74,7 +74,7 @@
         min-width="90px"
       >
         <template slot-scope="scope">
-          {{ getFormat(scope.row.updateDate) }}
+          {{ scope.row.updateDate|getFormat }}
         </template>
       </el-table-column>
       <el-table-column align="left" label="操作" width="210">
@@ -172,9 +172,7 @@ export default {
       this.page.total = data.total;
     },
 
-    getFormat(date) {
-      return format(date);
-    },
+
 
     // 当每页显示多少条改变后触发
     handleSizeChange(val) {
@@ -240,5 +238,10 @@ export default {
         });
     },
   },
+  filters:{
+    getFormat(date) {
+      return format(date);
+    },
+  }
 };
 </script>
