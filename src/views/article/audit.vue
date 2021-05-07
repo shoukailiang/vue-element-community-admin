@@ -117,14 +117,13 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(() => {
-          api.auditSuccess(this.id).then((response) => {
-            this.$message({
-              type: "success",
-              message: "审核通过!",
-            });
-            this.remoteClose();
+        .then(async () => {
+          let response = await api.auditSuccess(this.id);
+          this.$message({
+            type: "success",
+            message: "审核通过!",
           });
+          this.remoteClose();
         })
         .catch(() => {
           console.log("点击取消")
@@ -137,14 +136,13 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(() => {
-          api.auditFail(this.id).then((response) => {
-            this.$message({
+        .then(async () => {
+          let response = await api.auditFail(this.id);
+          this.$message({
               type: "success",
               message: "审核不通过!",
             });
             this.remoteClose();
-          });
         })
         .catch(() => {
           console.log("点击取消")

@@ -62,7 +62,7 @@
       <el-table-column align="center" prop="status" label="状态">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.status === 0" type="danger">已删除</el-tag>
-          <el-tag v-if="scope.row.status === 1">未审核</el-tag>
+          <el-tag v-if="scope.row.status === 1" type="info">未审核</el-tag>
           <el-tag v-if="scope.row.status === 2" type="success">审核通过</el-tag>
           <el-tag v-if="scope.row.status === 3" type="warning">审核未通过</el-tag>
         </template>
@@ -224,12 +224,11 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(() => {
-          api.deleteById(id).then((response) => {
-            this.$message({
-              type: response.code === 20000 ? "success" : "error",
-              message: response.message,
-            });
+        .then(async () => {
+          let response = await api.deleteById(id);
+          this.$message({
+            type: response.code === 20000 ? "success" : "error",
+            message: response.message,
           });
           this.fetchData();
         })

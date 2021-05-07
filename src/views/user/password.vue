@@ -90,21 +90,17 @@ export default {
 
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          // 校验通过，提交表单数据
-          // 要将userId进行提交给后台
           this.formData.userId = this.userId;
-          api.updatePassword(this.formData).then((response) => {
-            if (response.code === 20000) {
+          let response = await api.updatePassword(this.formData);
+          if (response.code === 20000) {
               this.$message({ message: "修改密码成功", type: "success" });
               this.handleClose();
             } else {
               this.$message({ message: response.message, type: "error" });
             }
-          });
         } else {
-          // console.log('error submit!!');
           return false;
         }
       });

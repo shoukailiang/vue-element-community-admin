@@ -150,25 +150,22 @@ export default {
   },
 
   methods: {
-    fetchData() {
-      api
-        .getList(this.query, this.page.current, this.page.size)
-        .then((response) => {
-          // console.log('response', response)
-          // 列表数据
-          this.list = response.data.records;
-          this.page.total = response.data.total;
-        });
+    async fetchData() {
+      let response = await api.getList(this.query, this.page.current, this.page.size);
+      if(response.code===20000){
+        this.list = response.data.records;
+        this.page.total = response.data.total;
+      }
+        
     },
 
-    handleEdit(id) {
-      api.getById(id).then((response) => {
-        if (response.code === 20000) {
+    async handleEdit(id) {
+      let response = await api.getById(id);
+      if (response.code === 20000) {
           this.edit.formData = response.data;
           this.edit.title = "编辑";
           this.edit.visible = true;
-        }
-      });
+      }
     },
 
     handleDelete(id) {
@@ -177,14 +174,12 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(() => {
+        .then(async () => {
           // 发送删除请求
-          api.deleteById(id).then((response) => {
-            // 处理响应结果提示
-            this.$message({
+          let response = await api.deleteById(id);
+          this.$message({
               type: response.code === 20000 ? "success" : "error",
               message: response.message,
-            });
           });
           // 刷新列表数据
           this.fetchData();

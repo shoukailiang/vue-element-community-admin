@@ -173,24 +173,22 @@ export default {
     },
 
     // 上传图片, file 上传的图片对象
-    uploadMainImg(file) {
+    async uploadMainImg(file) {
       // console.log('file', file)
       const data = new FormData();
       data.append("file", file.file);
-      commonApi
-        .uploadImg(data)
-        .then((response) => {
-          // 将之前的图片删除，
+      let response = await commonApi.uploadImg(data);
+      if(response.code===20000){
+           // 将之前的图片删除，
           this.deleteImg();
           // 回显图片
           this.formData.imageUrl = response.data;
-        })
-        .catch((error) => {
+      }else{
           this.$message({
             type: "error",
             message: "上传失败",
           });
-        });
+      }
     },
 
     deleteImg() {
@@ -198,7 +196,6 @@ export default {
       if (
         this.formData.imageUrl ) {
         // console.log("上传")
-        // 发送请求删除
         commonApi.deleteImg(this.oldImageUrl);
       }
     },

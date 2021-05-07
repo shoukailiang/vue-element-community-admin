@@ -223,14 +223,18 @@ export default {
       this.fetchData();
     },
 
-    handleEdit(id) {
-      api.getById(id).then((response) => {
-        if (response.code === 20000) {
+    async handleEdit(id) {
+      let response = await api.getById(id);
+      if (response.code === 20000) {
           this.edit.formData = response.data;
           this.edit.title = "编辑";
           this.edit.visible = true;
-        }
-      });
+      }else{
+        this.$message({
+          type:'error',
+          message:response.message
+        })
+      }
     },
 
     handleDelete(id) {
@@ -239,12 +243,11 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(() => {
-          api.deleteById(id).then((response) => {
-            this.$message({
+        .then(async () => {
+          let response = await api.deleteById(id);
+          this.$message({
               type: response.code === 20000 ? "success" : "error",
               message: response.message,
-            });
           });
           this.fetchData();
         })

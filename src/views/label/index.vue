@@ -128,26 +128,34 @@ export default {
   },
 
   methods: {
-    fetchData() {
-      api
-        .getList(this.query, this.page.current, this.page.size)
-        .then((response) => {
-          this.list = response.data.records;
-          this.page.total = response.data.total;
-        });
+    async fetchData() {
+      let response= await api.getList(this.query, this.page.current, this.page.size);
+      if(response.code===20000){
+        this.list = response.data.records;
+        this.page.total = response.data.total;
+      }else{
+        this.$message({
+          type:"error",
+          message:"出错了"
+        })
+      }
     },
 
-    handleEdit(id) {
+    async handleEdit(id) {
       // console.log('编辑', id)
-      api.getById(id).then((response) => {
-        if (response.code === 20000) {
+      let response  = await api.getById(id);
+      if (response.code === 20000) {
           // console.log(response.data)
           this.edit.formData = response.data;
           //弹出窗口
           this.edit.visible = true;
           this.edit.title = "编辑";
-        }
-      });
+      }else{
+        this.$message({
+          type:"error",
+          message:"出错了"
+        })
+      }
     },
 
     handleDelete(id) {
@@ -157,16 +165,13 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(() => {
+        .then(async () => {
           // 发送删除请求
-          api.deleteById(id).then((response) => {
-            // 处理响应结果提示
-            this.$message({
-              type: response.code === 20000 ? "success" : "error",
-              message: response.message,
-            });
+          let response = await api.deleteById(id);
+          this.$message({
+            type: response.code === 20000 ? "success" : "error",
+            message: response.message,
           });
-          // 刷新列表数据
           this.fetchData();
         })
         .catch(() => {
@@ -185,11 +190,16 @@ export default {
     },
 
     // 获取 正常 状态的分类列表数据
-    getCategoryList() {
-      categoryApi.getNormalList().then((response) => {
+    async getCategoryList() {
+      let response = await categoryApi.getNormalList();
+      if(response.code===20000){
         this.categoryList = response.data;
-        // console.log('this.categoryList ', this.categoryList )
-      });
+      }else{
+        this.$message({
+          type:"error",
+          message:"出错了"
+        })
+      }
     },
 
     queryData() {

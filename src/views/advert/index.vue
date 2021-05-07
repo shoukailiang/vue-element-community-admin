@@ -155,14 +155,20 @@ export default {
 
   methods: {
     async fetchData() {
-      const { data } = await api.getList(
+      const { data,code } = await api.getList(
         this.query,
         this.page.current,
         this.page.size
       );
-      
-      this.page.total = data.total;
-      this.list = data.records;
+      if(code===20000){
+        this.page.total = data.total;
+        this.list = data.records;
+      }else{
+        this.$message({
+          type:'error',
+          message:"出错了"
+        })
+      }
     },
 
     // 编辑
@@ -185,14 +191,13 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(() => {
-          api.deleteById(id).then((response) => {
-            this.$message({
-              type: response.code === 20000 ? "success" : "error",
-              message: response.message,
-            });
-            this.fetchData();
+        .then(async () => {
+          let response = await api.deleteById(id);
+          this.$message({
+            type: response.code === 20000 ? "success" : "error",
+            message: response.message,
           });
+          this.fetchData();
         })
         .catch(() => {
           console.log("取消")
