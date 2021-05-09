@@ -175,7 +175,6 @@ export default {
     async handleEdit(id) {
       const response = await api.getById(id);
       if (response.code === 20000) {
-        // console.log(response.data)
         this.edit.formData = response.data;
         // 修改前的图片url
         this.edit.oldImageUrl = response.data.imageUrl;

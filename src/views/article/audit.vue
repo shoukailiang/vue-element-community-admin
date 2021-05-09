@@ -158,7 +158,6 @@ export default {
     async getLabelOptions() {
       const { data } = await categoryApi.getCategoryAndLabel();
       this.labelOptions = data;
-      //    console.log('this.labelOptions', this.labelOptions)
     },
   },
 };

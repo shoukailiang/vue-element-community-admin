@@ -90,7 +90,6 @@ service.interceptors.response.use(
     if (isLock && PcCookie.get(Key.refreshTokenKey)) {
       isLock = false // 在发送后，将此值 设置为false
       // 跳转到认证中心客户端，实现刷新令牌效果
-      // console.log(error.response.status)
       window.location.href =
         `${process.env.VUE_APP_AUTH_CENTER_URL}/refresh?redirectURL=${window.location.href}`
     } else {

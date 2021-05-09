@@ -143,7 +143,6 @@ export default {
           // 校验通过，提交表单数据
           this.submitData();
         } else {
-          // console.log('error submit!!');
           return false;
         }
       });
@@ -174,7 +173,6 @@ export default {
 
     // 上传图片, file 上传的图片对象
     async uploadMainImg(file) {
-      // console.log('file', file)
       const data = new FormData();
       data.append("file", file.file);
       let response = await commonApi.uploadImg(data);
@@ -195,7 +193,6 @@ export default {
       // 如果之前有图片，则删除之前的
       if (
         this.formData.imageUrl ) {
-        // console.log("上传")
         commonApi.deleteImg(this.oldImageUrl);
       }
     },

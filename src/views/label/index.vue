@@ -142,10 +142,8 @@ export default {
     },
 
     async handleEdit(id) {
-      // console.log('编辑', id)
       let response  = await api.getById(id);
       if (response.code === 20000) {
-          // console.log(response.data)
           this.edit.formData = response.data;
           //弹出窗口
           this.edit.visible = true;
@@ -159,7 +157,6 @@ export default {
     },
 
     handleDelete(id) {
-      // console.log('删除', id)
       this.$confirm("确认删除这条记录吗?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
