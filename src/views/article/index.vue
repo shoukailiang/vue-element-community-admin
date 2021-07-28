@@ -73,12 +73,12 @@
       </el-table-column>
       <el-table-column
         align="center"
-        prop="updateDate"
+        prop="gmtModified"
         label="最后更新时间"
         min-width="90px"
       >
         <template slot-scope="scope">
-          {{ getFormat(scope.row.updateDate) }}
+          {{ getFormat(scope.row.gmtModified) }}
         </template>
       </el-table-column>
       <el-table-column align="left" label="操作" width="210">
